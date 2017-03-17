@@ -3,7 +3,7 @@
 namespace WHMCS\Module\Registrar\Registrarmodule;
 
 /**
- * Sample Registrar Module Simple API Client.
+ * Upperlink Registrar Module WHMCS API Client.
  *
  * A simple API Client for communicating with an external API endpoint.
  */

@@ -1,34 +1,11 @@
 <?php
 /**
- * WHMCS SDK Sample Registrar Module
+ * WHMCS Upperlink Registrar Module
  *
- * Registrar Modules allow you to create modules that allow for domain
- * registration, management, transfers, and other functionality within
- * WHMCS.
- *
- * This sample file demonstrates how a registrar module for WHMCS should
- * be structured and exercises supported functionality.
- *
- * Registrar Modules are stored in a unique directory within the
- * modules/registrars/ directory that matches the module's unique name.
- * This name should be all lowercase, containing only letters and numbers,
- * and always start with a letter.
- *
- * Within the module itself, all functions must be prefixed with the module
- * filename, followed by an underscore, and then the function name. For
- * example this file, the filename is "registrarmodule.php" and therefore all
- * function begin "registrarmodule_".
- *
- * If your module or third party API does not support a given function, you
- * should not define the function within your module. WHMCS recommends that
- * all registrar modules implement Register, Transfer, Renew, GetNameservers,
- * SaveNameservers, GetContactDetails & SaveContactDetails.
- *
- * For more information, please refer to the online documentation.
  *
  * @see http://developers.whmcs.com/domain-registrars/
- *
- * @copyright Copyright (c) WHMCS Limited 2016
+ * @author Babatundedaniel daniel.babatunde@upperlink.ng https://github.com/babatundeodaniel/
+ * @copyright Copyright (c) Upperlink Limited 2017
  * @license http://www.whmcs.com/license/ WHMCS Eula
  */
 
@@ -53,10 +30,10 @@ use WHMCS\Module\Registrar\Registrarmodule\ApiClient;
  *
  * @return array
  */
-function registrarmodule_MetaData()
+function upperlinkregistrarmodule_MetaData()
 {
     return array(
-        'DisplayName' => 'Sample Registrar Module for WHMCS',
+        'DisplayName' => 'Upperlink Registrar Module for WHMCS',
         'APIVersion' => '1.1',
     );
 }
@@ -79,55 +56,32 @@ function registrarmodule_MetaData()
  *
  * @return array
  */
-function registrarmodule_getConfigArray()
+function upperlinkregistrarmodule_getConfigArray()
 {
     return array(
         // Friendly display name for the module
         'FriendlyName' => array(
-            'Type' => 'System',
+            'Type' => 'Upperlink Registrar System',
             'Value' => 'Sample Registrar Module for WHMCS',
         ),
         // a text field type allows for single line text input
-        'API Username' => array(
+        'ResellerID' => array(
             'Type' => 'text',
             'Size' => '25',
             'Default' => '1024',
-            'Description' => 'Enter in megabytes',
+            'Description' => 'Enter your ResellerID',
         ),
         // a password field type allows for masked text input
-        'API Key' => array(
+        'Reseller Access Key' => array(
             'Type' => 'password',
             'Size' => '25',
             'Default' => '',
-            'Description' => 'Enter secret value here',
+            'Description' => 'Enter Reseller Access Key',
         ),
         // the yesno field type displays a single checkbox option
         'Test Mode' => array(
             'Type' => 'yesno',
             'Description' => 'Tick to enable',
-        ),
-        // the dropdown field type renders a select menu of options
-        'Account Mode' => array(
-            'Type' => 'dropdown',
-            'Options' => array(
-                'option1' => 'Display Value 1',
-                'option2' => 'Second Option',
-                'option3' => 'Another Option',
-            ),
-            'Description' => 'Choose one',
-        ),
-        // the radio field type displays a series of radio button options
-        'Email Preference' => array(
-            'Type' => 'radio',
-            'Options' => 'First Option,Second Option,Third Option',
-            'Description' => 'Choose your preference',
-        ),
-        // the textarea field type allows for multi-line text input
-        'Email' => array(
-            'Type' => 'textarea',
-            'Rows' => '3',
-            'Cols' => '60',
-            'Description' => 'Freeform multi-line text input field',
         ),
     );
 }
@@ -148,15 +102,15 @@ function registrarmodule_getConfigArray()
  *
  * @return array
  */
-function registrarmodule_RegisterDomain($params)
+function upperlinkregistrarmodule_RegisterDomain($params)
 {
     // user defined configuration values
-    $userIdentifier = $params['API Username'];
-    $apiKey = $params['API Key'];
+    $userIdentifier = $params['ResellerID'];
+    $apiKey = $params['Reseller Access Key'];
     $testMode = $params['Test Mode'];
-    $accountMode = $params['Account Mode'];
-    $emailPreference = $params['Email Preference'];
-    $additionalInfo = $params['Additional Information'];
+    //$accountMode = $params['Account Mode'];
+    //$emailPreference = $params['Email Preference'];
+    //$additionalInfo = $params['Additional Information'];
 
     // registration parameters
     $sld = $params['sld'];
@@ -314,7 +268,7 @@ function registrarmodule_RegisterDomain($params)
  *
  * @return array
  */
-function registrarmodule_TransferDomain($params)
+function upperlinkregistrarmodule_TransferDomain($params)
 {
     // user defined configuration values
     $userIdentifier = $params['API Username'];
@@ -478,7 +432,7 @@ function registrarmodule_TransferDomain($params)
  *
  * @return array
  */
-function registrarmodule_RenewDomain($params)
+function upperlinkregistrarmodule_RenewDomain($params)
 {
     // user defined configuration values
     $userIdentifier = $params['API Username'];
@@ -548,7 +502,7 @@ function registrarmodule_RenewDomain($params)
  *
  * @return array
  */
-function registrarmodule_GetNameservers($params)
+function upperlinkregistrarmodule_GetNameservers($params)
 {
     // user defined configuration values
     $userIdentifier = $params['API Username'];
@@ -603,7 +557,7 @@ function registrarmodule_GetNameservers($params)
  *
  * @return array
  */
-function registrarmodule_SaveNameservers($params)
+function upperlinkregistrarmodule_SaveNameservers($params)
 {
     // user defined configuration values
     $userIdentifier = $params['API Username'];
@@ -664,7 +618,7 @@ function registrarmodule_SaveNameservers($params)
  *
  * @return array
  */
-function registrarmodule_GetContactDetails($params)
+function upperlinkGetContactDetails($params)
 {
     // user defined configuration values
     $userIdentifier = $params['API Username'];
@@ -769,7 +723,7 @@ function registrarmodule_GetContactDetails($params)
  *
  * @return array
  */
-function registrarmodule_SaveContactDetails($params)
+function upperlinkregistrarmodule_SaveContactDetails($params)
 {
     // user defined configuration values
     $userIdentifier = $params['API Username'];
@@ -855,7 +809,7 @@ function registrarmodule_SaveContactDetails($params)
  *
  * @return \WHMCS\Domains\DomainLookup\ResultsList An ArrayObject based collection of \WHMCS\Domains\DomainLookup\SearchResult results
  */
-function registrarmodule_CheckAvailability($params)
+function upperlinkregistrarmodule_CheckAvailability($params)
 {
     // user defined configuration values
     $userIdentifier = $params['API Username'];
@@ -940,7 +894,7 @@ function registrarmodule_CheckAvailability($params)
  *
  * @return array of Configuration Options
  */
-function registrarmodule_DomainSuggestionOptions() {
+function upperlinkregistrarmodule_DomainSuggestionOptions() {
     return array(
         'includeCCTlds' => array(
             'FriendlyName' => 'Include Country Level TLDs',
@@ -965,7 +919,7 @@ function registrarmodule_DomainSuggestionOptions() {
  *
  * @return \WHMCS\Domains\DomainLookup\ResultsList An ArrayObject based collection of \WHMCS\Domains\DomainLookup\SearchResult results
  */
-function registrarmodule_GetDomainSuggestions($params)
+function upperlinkregistrarmodule_GetDomainSuggestions($params)
 {
     // user defined configuration values
     $userIdentifier = $params['API Username'];
@@ -1047,7 +1001,7 @@ function registrarmodule_GetDomainSuggestions($params)
  *
  * @return string|array Lock status or error message
  */
-function registrarmodule_GetRegistrarLock($params)
+function upperlinkregistrarmodule_GetRegistrarLock($params)
 {
     // user defined configuration values
     $userIdentifier = $params['API Username'];
@@ -1095,7 +1049,7 @@ function registrarmodule_GetRegistrarLock($params)
  *
  * @return array
  */
-function registrarmodule_SaveRegistrarLock($params)
+function upperlinkregistrarmodule_SaveRegistrarLock($params)
 {
     // user defined configuration values
     $userIdentifier = $params['API Username'];
@@ -1145,7 +1099,7 @@ function registrarmodule_SaveRegistrarLock($params)
  *
  * @return array DNS Host Records
  */
-function registrarmodule_GetDNS($params)
+function upperlinkregistrarmodule_GetDNS($params)
 {
     // user defined configuration values
     $userIdentifier = $params['API Username'];
@@ -1198,7 +1152,7 @@ function registrarmodule_GetDNS($params)
  *
  * @return array
  */
-function registrarmodule_SaveDNS($params)
+function upperlinkregistrarmodule_SaveDNS($params)
 {
     // user defined configuration values
     $userIdentifier = $params['API Username'];
@@ -1248,7 +1202,7 @@ function registrarmodule_SaveDNS($params)
  *
  * @return array
  */
-function registrarmodule_IDProtectToggle($params)
+function upperlinkregistrarmodule_IDProtectToggle($params)
 {
     // user defined configuration values
     $userIdentifier = $params['API Username'];
@@ -1306,7 +1260,7 @@ function registrarmodule_IDProtectToggle($params)
  * @return array
  *
  */
-function registrarmodule_GetEPPCode($params)
+function upperlinkregistrarmodule_GetEPPCode($params)
 {
     // user defined configuration values
     $userIdentifier = $params['API Username'];
@@ -1363,7 +1317,7 @@ function registrarmodule_GetEPPCode($params)
  *
  * @return array
  */
-function registrarmodule_ReleaseDomain($params)
+function upperlinkregistrarmodule_ReleaseDomain($params)
 {
     // user defined configuration values
     $userIdentifier = $params['API Username'];
@@ -1413,7 +1367,7 @@ function registrarmodule_ReleaseDomain($params)
  *
  * @return array
  */
-function registrarmodule_RequestDelete($params)
+function upperlinkregistrarmodule_RequestDelete($params)
 {
     // user defined configuration values
     $userIdentifier = $params['API Username'];
@@ -1461,7 +1415,7 @@ function registrarmodule_RequestDelete($params)
  *
  * @return array
  */
-function registrarmodule_RegisterNameserver($params)
+function upperlinkregistrarmodule_RegisterNameserver($params)
 {
     // user defined configuration values
     $userIdentifier = $params['API Username'];
@@ -1515,7 +1469,7 @@ function registrarmodule_RegisterNameserver($params)
  *
  * @return array
  */
-function registrarmodule_ModifyNameserver($params)
+function upperlinkregistrarmodule_ModifyNameserver($params)
 {
     // user defined configuration values
     $userIdentifier = $params['API Username'];
@@ -1569,7 +1523,7 @@ function registrarmodule_ModifyNameserver($params)
  *
  * @return array
  */
-function registrarmodule_DeleteNameserver($params)
+function upperlinkregistrarmodule_DeleteNameserver($params)
 {
     // user defined configuration values
     $userIdentifier = $params['API Username'];
@@ -1623,7 +1577,7 @@ function registrarmodule_DeleteNameserver($params)
  *
  * @return array
  */
-function registrarmodule_Sync($params)
+function upperlinkregistrarmodule_Sync($params)
 {
     // user defined configuration values
     $userIdentifier = $params['API Username'];
@@ -1675,7 +1629,7 @@ function registrarmodule_Sync($params)
  *
  * @return array
  */
-function registrarmodule_TransferSync($params)
+function upperlinkregistrarmodule_TransferSync($params)
 {
     // user defined configuration values
     $userIdentifier = $params['API Username'];
@@ -1732,7 +1686,7 @@ function registrarmodule_TransferSync($params)
  *
  * @return array
  */
-function registrarmodule_ClientAreaCustomButtonArray()
+function upperlinkregistrarmodule_ClientAreaCustomButtonArray()
 {
     return array(
         'Push Domain' => 'push',
@@ -1747,7 +1701,7 @@ function registrarmodule_ClientAreaCustomButtonArray()
  *
  * @return array
  */
-function registrarmodule_ClientAreaAllowedFunctions()
+function upperlinkregistrarmodule_ClientAreaAllowedFunctions()
 {
     return array(
         'Push Domain' => 'push',
@@ -1763,7 +1717,7 @@ function registrarmodule_ClientAreaAllowedFunctions()
  *
  * @return array
  */
-function registrarmodule_push($params)
+function upperlinkregistrarmodule_push($params)
 {
     // user defined configuration values
     $userIdentifier = $params['API Username'];
@@ -1794,7 +1748,7 @@ function registrarmodule_push($params)
  *
  * @return string HTML Output
  */
-function registrarmodule_ClientArea($params)
+function upperlinkregistrarmodule_ClientArea($params)
 {
     $output = '
         <div class="alert alert-info">
